@@ -28,7 +28,7 @@ public class Tools {
     }
 
 
-    public static boolean inRange(Date inputJudgeDate) {
+    public static boolean inRange(Date inputJudgeDate) throws ParseException {
         boolean flag = false;
         long longDate = System.currentTimeMillis();
         Date nowDate = new Date(longDate);
@@ -37,15 +37,8 @@ public class Tools {
         String subDate = format.substring(0, 10);
         String beginTime = subDate + " 09:00:00";
         String endTime = subDate + " 20:00:00";
-        Date paseBeginTime = null;
-        Date paseEndTime = null;
-        try {
-            paseBeginTime = dateFormat.parse(beginTime);
-            paseEndTime = dateFormat.parse(endTime);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Date paseBeginTime = dateFormat.parse(beginTime);
+        Date paseEndTime = dateFormat.parse(endTime);
         if (inputJudgeDate.after(paseBeginTime) && inputJudgeDate.before(paseEndTime)) {
             flag = true;
         }

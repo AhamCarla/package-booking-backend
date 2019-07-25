@@ -8,6 +8,7 @@ import com.oocl.fs.util.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -34,7 +35,7 @@ public class PackageService {
         return packageRepository.save(pakkage);
     }
 
-    public Package placeOrder(String packageNumber, Order order) {
+    public Package placeOrder(String packageNumber, Order order) throws ParseException {
         if (!Tools.inRange(order.getOrderDate())) {
             throw new RuntimeException("Not in time range");
         }

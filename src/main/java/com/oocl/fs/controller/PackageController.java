@@ -21,8 +21,7 @@ public class PackageController {
 
     @GetMapping(value = "/package")
     public List<Package> findAll(@RequestParam(required = false) String status) {
-        List<Package> list = packageService.findAllPackages(status);
-        return list;
+        return packageService.findAllPackages(status);
     }
 
     @PutMapping("/package/{packageNumber}")

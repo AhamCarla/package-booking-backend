@@ -9,8 +9,6 @@ public class Package {
     private String packageNumber;
     private String receiver;
     private String receiverContact;
-    //    @Column(name = "BOOKING_ID")
-//    private String orderId;
     private String status = PackageStatus.NOT_YET_RECEIVE.value();
     private Double weight;
 
