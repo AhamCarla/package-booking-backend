@@ -2,6 +2,8 @@ package com.oocl.fs.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Package {
@@ -11,6 +13,10 @@ public class Package {
     private String receiver;
     private String receiverContact;
     private String status;
+
+    @OneToOne
+    @JoinColumn(name = "PACKAGE_NUMBER")
+    private Order order;
 
     public String getPackageNumber() {
         return packageNumber;
@@ -42,5 +48,13 @@ public class Package {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
