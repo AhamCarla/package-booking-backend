@@ -6,6 +6,7 @@ import com.oocl.fs.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class PackageController {
     }
 
     @PostMapping("/package/{packageNumber}/order")
-    public Package placeOrder(@PathVariable String packageNumber, @RequestBody Order order) {
+    public Package placeOrder(@PathVariable String packageNumber, @RequestBody Order order) throws ParseException {
         return packageService.placeOrder(packageNumber, order);
     }
 
