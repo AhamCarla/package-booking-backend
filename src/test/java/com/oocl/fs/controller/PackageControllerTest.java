@@ -79,8 +79,13 @@ public class PackageControllerTest {
     }
 
     @Test
-    public void should_placeOrder() {
+    public void should_placeOrder() throws Exception {
+        Package pakkage = generatePackage();
+        when(packageService.placeOrder(anyString(), any())).thenReturn(pakkage);
 
+        ResultActions result = mvc.perform(post("/package/{packageNumber}/order", "201907120001").content("{}").contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk()).andExpect(jsonPath("$.order.id", is("dadawfawdfasdfawda")));
     }
 
 }

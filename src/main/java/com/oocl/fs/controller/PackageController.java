@@ -1,5 +1,6 @@
 package com.oocl.fs.controller;
 
+import com.oocl.fs.entity.Order;
 import com.oocl.fs.entity.Package;
 import com.oocl.fs.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class PackageController {
     public Package updateStatus(@PathVariable String packageNumber, @RequestBody Package pakkage) {
         return packageService.updateStatus(packageNumber, pakkage);
     }
+
+    @PostMapping("/package/{packageNumber}/order")
+    public Package placeOrder(@PathVariable String packageNumber, @RequestBody Order order) {
+        return packageService.placeOrder(packageNumber, order);
+    }
+
 
 }
