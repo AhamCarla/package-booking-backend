@@ -20,8 +20,7 @@ import java.util.Date;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,6 +44,17 @@ public class PackageControllerTest {
         order.setOrderDate(new Date());
         pakkage.setOrder(order);
         return pakkage;
+    }
+
+    @Test
+    public void should_return_saved_package() throws Exception {
+        Package pakkage = generatePackage();
+        when(packageService.savePackage(any())).thenReturn(pakkage);
+
+        ResultActions result = mvc.perform(post("/package").content("{}").contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk()).andExpect(jsonPath("$.packageNumber", is("201907120001")));
+
     }
 
 

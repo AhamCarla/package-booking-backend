@@ -12,6 +12,11 @@ public class PackageController {
     @Autowired
     private PackageService packageService;
 
+    @PostMapping("/package")
+    public Package save(@RequestBody Package pakkage) {
+        return packageService.savePackage(pakkage);
+    }
+
     @GetMapping(value = "/package", params = {"page"})
     public Page<Package> findAll(@RequestParam Integer page,
                                  @RequestParam(required = false, defaultValue = "10") Integer pageSize,
