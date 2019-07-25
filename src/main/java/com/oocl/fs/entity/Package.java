@@ -1,9 +1,6 @@
 package com.oocl.fs.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Package {
@@ -14,7 +11,7 @@ public class Package {
     private String receiverContact;
     private String status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PACKAGE_NUMBER")
     private Order order;
 

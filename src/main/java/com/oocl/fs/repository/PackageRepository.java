@@ -9,7 +9,7 @@ public interface PackageRepository extends JpaRepository<Package, String> {
 
     Page<Package> findAll(Pageable pageable);
 
-    Page<Package> findAllByStatus(String status);
+    Page<Package> findAllByStatus(Pageable pageable, String status);
 
 
 }
