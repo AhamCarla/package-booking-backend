@@ -3,7 +3,7 @@ package com.oocl.fs.service;
 import com.oocl.fs.entity.Order;
 import com.oocl.fs.entity.Package;
 import com.oocl.fs.repository.PackageRepository;
-import com.oocl.fs.util.PackageUtils;
+import com.oocl.fs.util.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +17,7 @@ public class PackageService {
     private PackageRepository packageRepository;
 
     public Package savePackage(Package pakkage) {
-        pakkage.setPackageNumber(PackageUtils.getPackageNumber());
+        pakkage.setPackageNumber(Tools.getPackageNumber());
         return packageRepository.save(pakkage);
     }
 
@@ -36,6 +36,9 @@ public class PackageService {
     }
 
     public Package placeOrder(String packageNumber, Order order) {
+        if (!Tools.inRange(order.getOrderDate())) {
+            throw new RuntimeException("Not in time range");
+        }
         Package packkage = packageRepository.findById(packageNumber).get();
         packkage.setOrder(order);
         return packageRepository.save(packkage);
