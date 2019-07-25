@@ -3,6 +3,7 @@ package com.oocl.fs.service;
 import com.oocl.fs.entity.Order;
 import com.oocl.fs.entity.Package;
 import com.oocl.fs.repository.PackageRepository;
+import com.oocl.fs.util.PackageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ public class PackageService {
     private PackageRepository packageRepository;
 
     public Package savePackage(Package pakkage) {
+        pakkage.setPackageNumber(PackageUtils.getPackageNumber());
         return packageRepository.save(pakkage);
     }
 
