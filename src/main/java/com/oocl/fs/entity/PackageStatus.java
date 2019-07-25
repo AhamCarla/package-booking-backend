@@ -2,7 +2,7 @@ package com.oocl.fs.entity;
 
 public enum PackageStatus {
 
-    RECEIVED("RECEIVED"), NOT_YET_RECEIVE("NOT_YET_RECEIVE"), ORDERED("ORDERED");
+    RECEIVED("RECEIVED"), NOT_YET_RECEIVE("NOT_YET_RECEIVED"), ORDERED("ORDERED");
 
     private String packageStatus;
 

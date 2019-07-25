@@ -19,9 +19,10 @@ public class PackageController {
         return packageService.savePackage(pakkage);
     }
 
-    @GetMapping(value = "/package", params = {"page"})
+    @GetMapping(value = "/package")
     public List<Package> findAll(@RequestParam(required = false) String status) {
-        return packageService.findAllPackages(status);
+        List<Package> list = packageService.findAllPackages(status);
+        return list;
     }
 
     @PutMapping("/package/{packageNumber}")

@@ -9,11 +9,13 @@ public class Package {
     private String packageNumber;
     private String receiver;
     private String receiverContact;
+    //    @Column(name = "BOOKING_ID")
+//    private String orderId;
     private String status = PackageStatus.NOT_YET_RECEIVE.value();
     private Double weight;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "PACKAGE_NUMBER")
+    @JoinColumn(name = "BOOKING_ID")
     private Order order;
 
     public String getPackageNumber() {
@@ -63,4 +65,5 @@ public class Package {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
+
 }
