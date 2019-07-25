@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -17,10 +18,10 @@ import java.util.Collections;
 import java.util.Date;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,6 +47,7 @@ public class PackageControllerTest {
         return pakkage;
     }
 
+
     @Test
     public void should_return_paged_package() throws Exception {
         Package pakkage = generatePackage();
@@ -57,14 +59,13 @@ public class PackageControllerTest {
     }
 
     @Test
-    public void should_return_filtered_paged_package() {
+    public void should_return_updated_package() throws Exception {
+        Package pakkage = generatePackage();
+        when(packageService.updateStatus(anyString(), any())).thenReturn(pakkage);
 
+        ResultActions result = mvc.perform(put("/package/{packageNumber}", "201907120001").content("{}").contentType(MediaType.APPLICATION_JSON));
 
-    }
-
-    @Test
-    public void should_return_updated_package() {
-
+        result.andExpect(status().isOk()).andExpect(jsonPath("$.packageNumber", is("201907120001")));
     }
 
     @Test

@@ -4,9 +4,7 @@ import com.oocl.fs.entity.Package;
 import com.oocl.fs.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class PackageController {
@@ -20,6 +18,11 @@ public class PackageController {
                                  @RequestParam(required = false) String status) {
         return packageService.findAllPackages(page, pageSize, status);
 
+    }
+
+    @PutMapping("/package/{packageNumber}")
+    public Package updateStatus(@PathVariable String packageNumber, @RequestBody Package pakkage) {
+        return packageService.updateStatus(packageNumber, pakkage);
     }
 
 }
