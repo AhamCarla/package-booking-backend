@@ -4,8 +4,9 @@ import com.oocl.fs.entity.Order;
 import com.oocl.fs.entity.Package;
 import com.oocl.fs.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class PackageController {
@@ -19,11 +20,8 @@ public class PackageController {
     }
 
     @GetMapping(value = "/package", params = {"page"})
-    public Page<Package> findAll(@RequestParam Integer page,
-                                 @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-                                 @RequestParam(required = false) String status) {
-        return packageService.findAllPackages(page, pageSize, status);
-
+    public List<Package> findAll(@RequestParam(required = false) String status) {
+        return packageService.findAllPackages(status);
     }
 
     @PutMapping("/package/{packageNumber}")

@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +16,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import java.util.Collections;
 import java.util.Date;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -61,11 +62,11 @@ public class PackageControllerTest {
     @Test
     public void should_return_paged_package() throws Exception {
         Package pakkage = generatePackage();
-        when(packageService.findAllPackages(anyInt(), anyInt(), any())).thenReturn(new PageImpl<>(Collections.singletonList(pakkage)));
+        when(packageService.findAllPackages(any())).thenReturn(Collections.singletonList(pakkage));
 
         ResultActions result = mvc.perform(get("/package?page={page}&page_size={pageSize}&status={status}", 0, 10, "ALL"));
 
-        result.andExpect(status().isOk()).andExpect(jsonPath("$.empty", is(false)));
+        result.andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(1)));
     }
 
     @Test

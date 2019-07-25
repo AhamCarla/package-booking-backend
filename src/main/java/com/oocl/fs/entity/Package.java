@@ -9,7 +9,8 @@ public class Package {
     private String packageNumber;
     private String receiver;
     private String receiverContact;
-    private String status;
+    private String status = PackageStatus.NOT_YET_RECEIVE.value();
+    private Double weight;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PACKAGE_NUMBER")
@@ -53,5 +54,13 @@ public class Package {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }

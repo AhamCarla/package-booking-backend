@@ -2,13 +2,13 @@ package com.oocl.fs.service;
 
 import com.oocl.fs.entity.Order;
 import com.oocl.fs.entity.Package;
+import com.oocl.fs.entity.PackageStatus;
 import com.oocl.fs.repository.PackageRepository;
 import com.oocl.fs.util.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PackageService {
@@ -21,12 +21,11 @@ public class PackageService {
         return packageRepository.save(pakkage);
     }
 
-    public Page<Package> findAllPackages(Integer page, Integer pageSize, String status) {
-        Pageable pageable = PageRequest.of(page, pageSize);
+    public List<Package> findAllPackages(String status) {
         if (status == null) {
-            return packageRepository.findAll(pageable);
+            return packageRepository.findAll();
         } else {
-            return packageRepository.findAllByStatus(pageable, status);
+            return packageRepository.findAllByStatus(status);
         }
     }
 
@@ -40,6 +39,7 @@ public class PackageService {
             throw new RuntimeException("Not in time range");
         }
         Package packkage = packageRepository.findById(packageNumber).get();
+        packkage.setStatus(PackageStatus.ORDERED.value());
         packkage.setOrder(order);
         return packageRepository.save(packkage);
     }
